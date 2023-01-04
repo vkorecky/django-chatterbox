@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="http://fonts.googleapis.com/css?family=Arvo" rel="stylesheet" type="text/css"/>
+    <link href="http://fonts.googleapis.com/css?family=Bevan" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}"/>
+    <title>Title</title>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header">
+        <div id="logo">
+            <h1>Chatterbox</h1>
+        </div>
+        {% if user.is_authenticated %}
+            <div id="search">
+                <form action="{% url 'search' %}" method="get">
+                    <div>
+                        <input class="text" name="q" size="32" maxlength="64">
+                    </div>
+                </form>
+            </div>
+            <div id="menu">
+                {% include 'navbar.html' %}
+            </div>
+        {% endif %}
+    </div>
+    <div id="page">
+        <div id="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <br class="clearfix">
+    </div>
+    <br class="clearfix">
+</div>
+</body>
+</html>

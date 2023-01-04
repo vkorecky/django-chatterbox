@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+
+{% block content %}
+    <h1>{{ room.name }}</h1>
+    <div class="box">{{ room.description }}</div>
+    <div class="box room__message">
+        {% if perms.base.add_message %}
+            <form method="POST">
+                {% csrf_token %}
+                <input name="body" placeholder="Write your message here..."/>
+            </form>
+        {% endif %}
+    </div>
+    {% for message in messages %}
+        <div class="box">
+            {% if user == message.user %}
+                <div style="float: right"><b>{{ message.user }}</b> <i>[{{ message.created }}]</i></div>
+                <div class="message" style="float: right; background-color: #e16060; color: white;">{{ message.body }}</div>
+            {% else %}
+                <div><b>{{ message.user }}</b> <i>[{{ message.created }}]</i></div>
+                <div class="message">{{ message.body }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
